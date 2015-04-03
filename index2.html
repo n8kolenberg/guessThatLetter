@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<canvas id="c" width="600" height="500"></canvas>
+
+		<script>
+		var c = document.getElementById("c");
+		var ctx = c.getContext("2d");
+
+
+
+		function drawScreen() {
+			//Background
+			ctx.fillStyle = "#ffffaa";
+			ctx.fillRect(0, 0, 500, 300);
+
+			//Box
+			ctx.strokeStyle = "coral";
+			ctx.strokeRect(5, 5, 490, 290);
+
+			ctx.textBaseline = "top";
+			
+			//Date
+			ctx.fillStyle = "#000000";
+			ctx.font = "10px Sans-serif";
+			ctx.fillText(today, 150, 10);
+
+			//Message
+			ctx.fillStyle = "#FF0000";
+			ctx.font = "14px Sans-serif";
+			ctx.fillText(message, 125, 30);
+
+			//Guesses
+			ctx.fillStyle = "#109910";
+			ctx.font = "16px Sans-serif";
+			ctx.fillText("Guesses: " + guesses, 215, 50);
+
+			//Higher or Lower
+			ctx.fillStyle = "#000000";
+			ctx.font = "16px Sans-serif";
+			ctx.fillText("Higher or Lower: " + higherOrLower, 150, 125);
+
+			//Letters Guessed
+			ctx.fillStyle = "#FF0000";
+			ctx.font = "16px Sans-serif";
+			ctx.fillText("Letters Guessed: " + lettersGuessed.toString(), 10, 260);
+
+			if(gameOver) {
+				ctx.fillStyle = "#FF0000";
+				ctx.font = "40px Sans-serif";
+				ctx.fillText("You got it!", 150, 180);
+			}
+		}
+
+
+
+		var guesses = 0;
+		var message = "Guess the Letter from a (lower) to z (higher)";
+
+		var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+		var today = new Date();
+		var letterToGuess = "";
+		var higherOrLower = "";
+		var lettersGuessed;
+		var gameOver = false;
+
+		(function initGame() {
+			var letterIndex = Math.floor(Math.random() * letters.length);
+			letterToGuess = letters[letterIndex];
+			guesses = 0;
+			lettersGuessed = [];
+			gameOver = false;
+
+			window.addEventListener("keydown", eventKeyPressed, true);
+
+			drawScreen();
+		})() // end initGame function
+
+
+		
+		function eventKeyPressed(e){
+			if(!gameOver) {
+				var letterPressed = String.fromCharCode(e.keyCode); // to convert pressed key to alphabetic letter.
+				letterPressed = letterPressed.toLowerCase();
+				guesses++;
+				lettersGuessed.push(letterPressed);
+
+				if (letterPressed === letterToGuess) {
+					gameOver = true;
+				} else {
+					letterIndex = letters.indexOf(letterToGuess);
+					guessIndex = letters.indexOf(letterPressed);
+						if (guessIndex < 0) {
+							higherOrLower = "That is not a number";
+						} else if(guessIndex > letterIndex) {
+							higherOrLower = "Lower";
+						} else {
+							higherOrLower = "Higher";
+					} // end nested if statement
+
+			} // end if statement
+			drawScreen();
+			} // end if statement
+		} // end eventKeyPressed function
+
+
+
+
+
+		</script>
+	</body>
+</html>
