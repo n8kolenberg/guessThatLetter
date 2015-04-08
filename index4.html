@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		
+		<form>
+			<input type="button" id="createImageData" value="Export Canvas Image">
+		</form>
+
+		<canvas id="c" width="200" height="200"></canvas>
+
+		<script>
+
+		var c = document.getElementById("c");
+		var ctx = c.getContext("2d");
+
+		
+		var yOffset = 0;
+
+		function drawScreen(){	
+			
+			ctx.clearRect(0, 0, c.width, c.height);
+
+				
+			var currentPath = ctx.beginPath();
+			ctx.strokeStyle = "red";
+			ctx.lineWidth = 10;
+			ctx.moveTo(0, 0+yOffset);
+			ctx.lineTo(50, 0+yOffset);
+			ctx.lineTo(50, 50+yOffset);
+			ctx.stroke();
+			ctx.closePath();
+				yOffset+=1;
+		}
+
+		function gameLoop() {
+			window.setTimeout(gameLoop, 5);
+			drawScreen();
+		}
+		gameLoop();
+	
+		
+		console.log(ctx.isPointInPath(50, 50));
+
+
+// ctx.clearRect(0, 0, c.width, c.height);
+
+	// var w = c.width;
+	// var h = c.height;
+
+	// c.width = w;
+	// c.height = h;
+
+
+
+
+		</script>
+	</body>
+</html>

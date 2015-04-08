@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///home/nathanielk/Desktop/canvases/index2.html? -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>My Canvas</title>
+</head>
+
+<body>
+<canvas id="c" width="800" height="400">Your browser doesn't support HTML5 Canvas</canvas>
+
+<form>
+Text: <input type="text" id="textbox" placeholder="Text for canvas"> <br>
+
+Fill Or Stroke: <select id="fillOrStroke">
+<option value="fill">Fill</option>
+<option value="stroke">Stroke</option>
+<option value="both">Both</option>
+</select> <br>
+
+Font Size: <select id="fontSize">
+<option value="20">20px</option>
+<option value="30">30px</option>
+<option value="50">50px</option>
+</select> <br>
+
+
+
+FontStyle: <select id="fontStyle">
+<option value="normal">Normal</option>
+<option value="italic">Italic</option>
+<option value="oblique">Oblique</option>
+</select> <br>
+
+FontWeight: <select id="fontWeight">
+<option value="normal">Normal</option>
+<option value="bold">Bold</option>
+<option value="bolder">Bolder</option>
+<option value="lighter">Lighter</option>
+</select> <br>
+
+
+	
+
+
+</form>
+
+
+
+<script>
+var c = document.getElementById("c");
+var ctx = c.getContext("2d");
+var message;
+var w = c.width;
+var h = c.height;
+
+var metrics = ctx.measureText(message);
+var textWidth = metrics.width;
+var xCenter = (c.width/2) - (textWidth/2);
+var yCenter = c.height/2;
+var fillOrStroke = "fill";
+var fontSize, fontWeight, fontStyle;
+
+
+function clearCanvas(){
+	c.width = w;
+	c.height = h;
+} //end clearCanvas function
+
+function drawScreen(){
+
+	ctx.font = fontWeight + " " + fontStyle + " " + fontSize + "px " /*+ font*/;
+
+
+	switch(fillOrStroke) {
+		case "fill":
+			ctx.fillStyle = '#AACCDA';
+			ctx.fillText(message, xCenter, yCenter);
+			break;
+
+		case "stroke":
+			ctx.strokeStyle = '#C89966';
+			ctx.strokeText(message, xCenter, yCenter);
+			break;
+
+		case "both":
+			ctx.fillStyle = '#D7928E';
+			ctx.strokeStyle = '#47595E';
+			ctx.strokeText(message, xCenter, yCenter);
+			ctx.fillText(message, xCenter, yCenter);
+	} //end Switch statement for fillOrStroke
+
+	
+
+}// end drawScreen function
+
+
+// Fill Or Stroke option
+var formElement = document.getElementById("fillOrStroke");
+formElement.addEventListener("change", fillOrStrokeChanged, false);
+
+function fillOrStrokeChanged(e){
+	clearCanvas();
+	var target = e.target;
+	fillOrStroke = target.value;
+	drawScreen();
+}
+
+
+
+formElement = document.getElementById("textbox");
+formElement.addEventListener("keyup",textBoxChange, false);
+
+function textBoxChange(e){
+	clearCanvas();
+	var target = e.target;
+	message = target.value;
+	drawScreen();
+
+}
+
+//Font Size Option
+formElement = document.getElementById("fontSize");
+formElement.addEventListener("change", fontSizeChanged, false);
+
+function fontSizeChanged(e){
+	clearCanvas();
+	var target = e.target;
+	fontSize = target.value;
+	drawScreen();
+}
+
+
+//Font Style Option
+formElement = document.getElementById("fontStyle");
+formElement.addEventListener("change", fontStyleChanged, false);
+
+function fontStyleChanged(e){
+	// clearCanvas();
+	var target = e.target;
+	fontStyle = target.value;
+	drawScreen();
+}
+
+
+
+//Font Weight Option
+formElement = document.getElementById('fontWeight');
+formElement.addEventListener("changed", fontWeightChanged, false);
+
+function fontWeightChanged(e){
+	// clearCanvas();
+	var target = e.target;
+	fontWeight = target.value;
+	drawScreen();
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+</body></html>

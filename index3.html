@@ -1,0 +1,74 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CH1EX5 : Hello World Animated </title>
+
+</head>
+<body>
+    <div style="position: absolute; top: 50px; left: 50px;">
+        <canvas id="canvas" width="640" height="480">
+            Your browser doesn't support HTML 5 Canvas
+        </canvas>
+    </div>
+
+    <script>
+
+        var theCanvas = document.getElementById("canvas");
+        var context = theCanvas.getContext("2d");
+
+          function drawScreen() {
+            //background
+            context.globalAlpha = 1;
+            context.fillStyle = "#000000";
+              context.fillRect(0, 0, 640, 480);
+            
+            //image
+            context.globalAlpha = .25;
+            context.drawImage(helloWorldImage, 0, 0);
+
+
+            if (fadeIn) {
+                alpha += .01;
+                if (alpha >= 1)  {
+                    alpha = 1;
+                    fadeIn = false;
+                }
+            } else {
+                alpha -= .01;
+                if (alpha < 0)  {
+                    alpha = 0;
+                    fadeIn = true;
+                }
+            }
+
+            //text
+            context.font         = "60px Sans-Serif";
+            context.textBaseline = "top";
+
+
+            context.globalAlpha = alpha;
+            context.fillStyle    = "#FFFFFF";
+            context.fillText  (text, 100,200);
+
+        }
+
+        var text = "Run Carlino, Run!";
+        var alpha = 0;
+        var fadeIn = true;
+       
+        //image
+        var helloWorldImage = new Image();
+        helloWorldImage.src = "images/pug.jpg";
+
+        function gameLoop() {
+            window.setTimeout(gameLoop, 20);
+            drawScreen()
+        }
+
+        gameLoop();
+
+    </script>
+</body>
+</html>
