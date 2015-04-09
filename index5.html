@@ -17,11 +17,10 @@ Fill Or Stroke: <select id="fillOrStroke">
 </select> <br>
 
 Font Size: <select id="fontSize">
-<option value="20">20px</option>
-<option value="30">30px</option>
+<option value="40">40px</option>
 <option value="50">50px</option>
+<option value="60">60px</option>
 </select> <br>
-
 
 
 FontStyle: <select id="fontStyle">
@@ -37,6 +36,14 @@ FontWeight: <select id="fontWeight">
 <option value="lighter">Lighter</option>
 </select> <br>
 
+Font Face: <select id="fontFace">
+<option value="sans=serif">Sans Serif</option>
+<option value="Helvetica">Helvetica</option>
+<option value="Helvetica Neue">Helvetica Neue</option>
+<option value="Monospace">Monospace</option>
+<option value="Fantasy">Fantasy</option>
+<br>
+
 
 	
 
@@ -48,7 +55,7 @@ FontWeight: <select id="fontWeight">
 <script>
 var c = document.getElementById("c");
 var ctx = c.getContext("2d");
-var message;
+var message = "Your text";
 var w = c.width;
 var h = c.height;
 
@@ -57,7 +64,12 @@ var textWidth = metrics.width;
 var xCenter = (c.width/2) - (textWidth/2);
 var yCenter = c.height/2;
 var fillOrStroke = "fill";
-var fontSize, fontWeight, fontStyle;
+var fontSize = "40", 
+		fontWeight = "normal",
+		fontStyle = "normal",
+		fontFace = "Helvetica Neue";
+var textBaseline = "middle";
+var textAlign = "center";
 
 
 function clearCanvas(){
@@ -66,9 +78,21 @@ function clearCanvas(){
 } //end clearCanvas function
 
 function drawScreen(){
+//Background
+	ctx.globalAlpha = 1;
+	ctx.fillStyle = "#ffa";
+	ctx.fillRect(0, 0, w, h);
+	ctx.fillText(message, xCenter, yCenter);
+	
+//Box
+	ctx.strokeStyle = "#F00";
+	ctx.strokeRect(1, 1, w-10, h-10);
 
-	ctx.font = fontWeight + " " + fontStyle + " " + fontSize + "px " /*+ font*/;
-
+//Text
+	ctx.font = fontWeight + " " + fontStyle  + " " + fontSize + "px " + fontFace;  
+	ctx.textBaseline = textBaseline;
+	ctx.textAlign = textAlign;
+	
 
 	switch(fillOrStroke) {
 		case "fill":
@@ -88,9 +112,24 @@ function drawScreen(){
 			ctx.fillText(message, xCenter, yCenter);
 	} //end Switch statement for fillOrStroke
 
-	
-
 }// end drawScreen function
+
+drawScreen(); //To draw the canvas app at the start
+
+
+
+
+//Textbox changes
+formElement = document.getElementById("textbox");
+formElement.addEventListener("keyup",textBoxChange, false);
+
+function textBoxChange(e){
+	clearCanvas();
+	var target = e.target;
+	message = target.value;
+	drawScreen();
+
+}
 
 
 // Fill Or Stroke option
@@ -106,23 +145,25 @@ function fillOrStrokeChanged(e){
 
 
 
-formElement = document.getElementById("textbox");
-formElement.addEventListener("keyup",textBoxChange, false);
+//Font Face Option
+formElement = document.getElementById('fontFace');
+formElement.addEventListener('change', fontFaceChanged, false);
 
-function textBoxChange(e){
-	clearCanvas();
+function fontFaceChanged(e){
+	// clearCanvas();
 	var target = e.target;
-	message = target.value;
+	fontFace = target.value;
 	drawScreen();
-
 }
+
+
 
 //Font Size Option
 formElement = document.getElementById("fontSize");
 formElement.addEventListener("change", fontSizeChanged, false);
 
 function fontSizeChanged(e){
-	clearCanvas();
+	// clearCanvas();
 	var target = e.target;
 	fontSize = target.value;
 	drawScreen();
@@ -144,7 +185,7 @@ function fontStyleChanged(e){
 
 //Font Weight Option
 formElement = document.getElementById('fontWeight');
-formElement.addEventListener("changed", fontWeightChanged, false);
+formElement.addEventListener("change", fontWeightChanged, false);
 
 function fontWeightChanged(e){
 	// clearCanvas();
