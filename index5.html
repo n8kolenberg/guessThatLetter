@@ -19,7 +19,7 @@ Fill Or Stroke: <select id="fillOrStroke">
 Font Size: <input type="range" id="fontSize"
 	min="40px"
 	step="0.1px"
-	max="80px"
+	max="70px"
 	value="40px" />
 <br>
 
@@ -54,7 +54,11 @@ Alpha: <input type="range" id="textAlpha"
 				value="1.0" />
 <br>
 
-	
+Fill Color: <input type="color" id="textFillColor" value="AACCDA"/>
+<br>
+
+Stroke Color:	<input type="color" id="textStrokeColor" value="C89966"/>
+<br>
 
 
 </form>
@@ -80,6 +84,8 @@ var fontSize = "40",
 var textBaseline = "middle";
 var textAlign = "center";
 var textAlpha = 1;
+var textFillColor = '#AACCDA';
+var textStrokeColor = '#C89966';
 
 function clearCanvas(){
 	c.width = w;
@@ -105,18 +111,18 @@ function drawScreen(){
 
 	switch(fillOrStroke) {
 		case "fill":
-			ctx.fillStyle = '#AACCDA';
+			ctx.fillStyle = textFillColor;
 			ctx.fillText(message, xCenter, yCenter);
 			break;
 
 		case "stroke":
-			ctx.strokeStyle = '#C89966';
+			ctx.strokeStyle = textStrokeColor;
 			ctx.strokeText(message, xCenter, yCenter);
 			break;
 
 		case "both":
-			ctx.fillStyle = '#D7928E';
-			ctx.strokeStyle = '#47595E';
+			ctx.fillStyle = textFillColor;
+			ctx.strokeStyle = textStrokeColor;
 			ctx.strokeText(message, xCenter, yCenter);
 			ctx.fillText(message, xCenter, yCenter);
 	} //end Switch statement for fillOrStroke
@@ -212,6 +218,27 @@ function textAlphaChanged(e){
 	textAlpha = target.value;
 	drawScreen();
 }
+
+//Fill Color Change
+formElement = document.getElementById("textFillColor");
+formElement.addEventListener("keyup", textFillColorChange, false);
+
+function textFillColorChange(e){
+	var target = e.target;
+	textFillColor = "#" + target.value;
+	drawScreen();
+}
+
+//Stroke Color Change
+formElement = document.getElementById("textStrokeColor");
+formElement.addEventListener("keyup", textStrokeColorChange, false);
+
+function textStrokeColorChange(e){
+	var target = e.target;
+	textStrokeColor = "#" + target.value;
+	drawScreen();
+}
+
 
 </script>
 
