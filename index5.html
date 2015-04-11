@@ -54,10 +54,10 @@ Alpha: <input type="range" id="textAlpha"
 				value="1.0" />
 <br>
 
-Fill Color: <input type="color" id="textFillColor" value="AACCDA"/>
+Fill Color: <input type="color" id="textFillColor" value="53657D"/>
 <br>
 
-Stroke Color:	<input type="color" id="textStrokeColor" value="C89966"/>
+Stroke Color:	<input type="color" id="textStrokeColor" value="F7F5F6"/>
 <br>
 
 
@@ -84,8 +84,8 @@ var fontSize = "40",
 var textBaseline = "middle";
 var textAlign = "center";
 var textAlpha = 1;
-var textFillColor = '#AACCDA';
-var textStrokeColor = '#C89966';
+var textFillColor = '#53657D';
+var textStrokeColor = '#F7F5F6';
 
 function clearCanvas(){
 	c.width = w;
@@ -95,13 +95,13 @@ function clearCanvas(){
 function drawScreen(){
 //Background
 	ctx.globalAlpha = 1;
-	ctx.fillStyle = "#ffa";
+	ctx.fillStyle = "#D1D7DA";
 	ctx.fillRect(0, 0, w, h);
 	ctx.fillText(message, xCenter, yCenter);
 	
 //Box
-	ctx.strokeStyle = "#F00";
-	ctx.strokeRect(1, 1, w-10, h-10);
+	ctx.strokeStyle = "#738497";
+	ctx.strokeRect(5, 5, w-10, h-10);
 
 //Text
 	ctx.font = fontWeight + " " + fontStyle  + " " + fontSize + "px " + fontFace;  
