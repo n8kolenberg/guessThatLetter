@@ -16,10 +16,18 @@ Fill Or Stroke: <select id="fillOrStroke">
 <option value="both">Both</option>
 </select> <br>
 
-Font Size: <select id="fontSize">
-<option value="40">40px</option>
-<option value="50">50px</option>
-<option value="60">60px</option>
+Font Size: <input type="range" id="fontSize"
+	min="40px"
+	step="0.1px"
+	max="80px"
+	value="40px" />
+<br>
+
+FontWeight: <select id="fontWeight">
+<option value="normal">Normal</option>
+<option value="bold">Bold</option>
+<option value="bolder">Bolder</option>
+<option value="lighter">Lighter</option>
 </select> <br>
 
 
@@ -29,12 +37,6 @@ FontStyle: <select id="fontStyle">
 <option value="oblique">Oblique</option>
 </select> <br>
 
-FontWeight: <select id="fontWeight">
-<option value="normal">Normal</option>
-<option value="bold">Bold</option>
-<option value="bolder">Bolder</option>
-<option value="lighter">Lighter</option>
-</select> <br>
 
 Font Face: <select id="fontFace">
 <option value="sans=serif">Sans Serif</option>
@@ -42,8 +44,15 @@ Font Face: <select id="fontFace">
 <option value="Helvetica Neue">Helvetica Neue</option>
 <option value="Monospace">Monospace</option>
 <option value="Fantasy">Fantasy</option>
+</select>
 <br>
 
+Alpha: <input type="range" id="textAlpha"
+				min="0.0"
+				max="1.0"
+				step="0.01"
+				value="1.0" />
+<br>
 
 	
 
@@ -70,7 +79,7 @@ var fontSize = "40",
 		fontFace = "Helvetica Neue";
 var textBaseline = "middle";
 var textAlign = "center";
-
+var textAlpha = 1;
 
 function clearCanvas(){
 	c.width = w;
@@ -92,7 +101,7 @@ function drawScreen(){
 	ctx.font = fontWeight + " " + fontStyle  + " " + fontSize + "px " + fontFace;  
 	ctx.textBaseline = textBaseline;
 	ctx.textAlign = textAlign;
-	
+	ctx.globalAlpha = textAlpha;
 
 	switch(fillOrStroke) {
 		case "fill":
@@ -194,6 +203,15 @@ function fontWeightChanged(e){
 	drawScreen();
 }
 
+//Text Alpha range
+formElement = document.getElementById("textAlpha");
+formElement.addEventListener("change", textAlphaChanged, false);
+
+function textAlphaChanged(e){
+	var target = e.target;
+	textAlpha = target.value;
+	drawScreen();
+}
 
 </script>
 
