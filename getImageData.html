@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<canvas id="c" width="1200" height="1200">Your browser doesn't support canvas</canvas>
+
+		<script>
+		var theCanvas = document.getElementById("c");
+		var ctx = theCanvas.getContext("2d");
+
+		theCanvas.addEventListener("click", onMouseClick, false);
+
+		function onMouseClick(e) {
+			var target = e.target;
+			var imgData = ctx.getImageData(0, 0, 350, 350);
+
+				for(var i = 0; i < imgData.data.length; i += 4){
+				imgData.data[i] = 255 - imgData.data[i];
+				imgData.data[i+1] = 255 - imgData.data[i+1];
+				imgData.data[i+2] = 255 - imgData.data[i+2];
+				imgData.data[i+3] = 255;
+				} //end for loop
+					ctx.putImageData(imgData, 0, 0);
+		} //end onMouseClick function
+
+		var carlino = new Image();
+		carlino.src = "images/pug.jpg";
+		
+		carlino.addEventListener("load", eventPhotoLoaded, false);
+
+				
+
+		function eventPhotoLoaded() {
+			drawScreen();
+		}
+
+		function drawScreen() {
+				ctx.drawImage(carlino, 0, 0, 350, 350);
+		} // end drawScreen function
+
+
+		</script>
+	</body>
+</html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		
+		<form>
+			<input type="button" id="createImageData" value="Export Canvas Image">
+		</form>
+
+		<canvas id="c" width="600" height="600"></canvas>
+
+		<script>
+
+		var c = document.getElementById("c");
+		var ctx = c.getContext("2d");
+	
+		var animationFrames = [1, 2, 3, 4, 5, 6];
+		var frameIndex = 0;
+
+		var tileSheet = new Image();
+		tileSheet.src = 'images/cat.png';
+
+		//ctx.drawImage(Image, source_x, source_y, source_width, source_height, destination_x, destination_y, destination_width, destination_y);
+		tileSheet.addEventListener("load", eventImageLoaded, false);
+
+		function eventImageLoaded(){
+			startUp();
+		}
+
+
+		function drawScreen(){	
+			//Background
+			ctx.fillStyle = "#D1D7DA";
+			ctx.strokeStyle = "#738497";
+			ctx.fillRect(0, 0, 600, 600);
+			ctx.strokeRect(5, 5, c.width-10, c.height-10);
+			
+			var sourceX = Math.floor(animationFrames[frameIndex] % 7) * 60;
+			var sourceY = Math.floor(animationFrames[frameIndex] / 7) * 110;
+
+// ctx.drawImage(tileSheet, 0, 0)
+			ctx.drawImage(tileSheet, sourceX, sourceY, 90, 85, 100, 100, 150, 150);
+
+			frameIndex++;
+			if (frameIndex==animationFrames.length){
+				frameIndex=0;
+			} //end if statement
+		
+		} // end drawScreen function	
+
+	function startUp(){
+				gameLoop();
+			} 
+
+			function gameLoop(){
+				window.setTimeout(gameLoop, 100);
+				drawScreen();
+			} //end gameLoop function
+
+
+		
+		console.log(ctx.isPointInPath(50, 50));
+
+		</script>
+	</body>
+</html>
