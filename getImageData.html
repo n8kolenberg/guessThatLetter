@@ -21,6 +21,12 @@
 				imgData.data[i+3] = 255;
 				} //end for loop
 					ctx.putImageData(imgData, 0, 0);
+
+			//to output the click locations of the user on the canvas		
+			var x = e.clientX - c.offsetLeft;
+			var y = e.clientY - c.offsetTop;
+			console.log("x: "+ x + ", y: "+ y);
+
 		} //end onMouseClick function
 
 		var carlino = new Image();
